@@ -5,13 +5,15 @@
 
 ## PE 的Normalize 方法
 没有直接给pts/100 进行归一化，而是将选取最远的相机位姿Z的平移归一化到1
-near=0 far=6
+*near=0* 
+*far=6*
 
 ## Train 记录
 选择num_frame =20 进行训练，psnr可以训练到26-27之间
 
 ## Bug 记录 
 当使用Kitti360的单目版本时候，Neus无法recover correct geometry,所有的pixel 的深度值几乎一样，使用双目正确恢复出geometry
+下面只是示意图，并不是对比图
 
 *单目recover出深度图：*
 
