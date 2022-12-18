@@ -12,8 +12,8 @@
 选择num_frame =20 进行训练，psnr可以训练到26-27之间
 
 ## Bug 记录 
-当使用Kitti360的单目版本时候，Neus无法recover correct geometry,所有的pixel 的深度值几乎一样，使用双目正确恢复出geometry
-下面只是示意图，并不是对比图
+当使用Kitti360的单目版本时候，Neus无法recover correct geometry,所有的pixel 的深度值几乎一样，使用双目正确恢复出geometry  
+**下面只是示意图，并不是对比图**
 
 *单目recover出深度图：*
 
