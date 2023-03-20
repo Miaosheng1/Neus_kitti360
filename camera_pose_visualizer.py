@@ -16,7 +16,24 @@ class CameraPoseVisualizer:
         self.ax.set_ylabel('y')
         self.ax.set_zlabel('z')
         print('initialize camera pose visualizer')
-
+        
+    def vis_camera_rays(self,rays_o,rays_d,N_rays = 50):
+        H,W,_ = rays_o.shape
+        if isinstance(rays_d,torch.Tensor):
+            rays_o = rays_o.detach().cpu().numpy()
+            rays_d = rays_d.detach().cpu().numpy()
+        coordinate_y = np.random.randint(low=0,high=H,size=[N_rays,])
+        coordinate_x = np.random.randint(low=0,high=W,size=[N_rays,])
+        coords = np.stack([coordinate_y,coordinate_x],axis=-1)
+        ## 根据坐标，提取出对应coord 的 rays_d 和 rays_o
+        orign = rays_o[coords[...,0],coords[...,1]]
+        view_direction = rays_d[coords[...,0],coords[...,1]]
+        t = np.linspace(0, 1, 64).reshape(1,-1)
+        line_points = orign[...,None,:] + view_direction[...,None,:]*t[...,:,None]
+        for i in range(N_rays): 
+            self.ax.plot(line_points[i,:,0], line_points[i,:,1], line_points[i,:,2], color='red')
+        self.show(file_name='vis_ray.png')
+        
     def extrinsic2pyramid(self, extrinsic, color='y', focal_len_scaled=0.1, aspect_ratio=0.3):
         # vertex_std = np.array([[0, 0, 0, 1],
         #                        [focal_len_scaled * aspect_ratio, -focal_len_scaled * aspect_ratio, focal_len_scaled, 1],
